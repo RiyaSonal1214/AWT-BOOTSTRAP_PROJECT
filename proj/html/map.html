@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+      <script type="text/javascript">
+         function showLocation(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var latlongvalue = position.coords.latitude + ","
+            + position.coords.longitude;
+         }
+         function errorHandler(err) {
+            if(err.code == 1) {
+               alert("Error: Access is denied!");
+            } else if( err.code == 2) {
+               alert("Error: Position is unavailable!");
+            }
+
+         }
+         function getLocation(){
+            if(navigator.geolocation){
+               // timeout at 60000 milliseconds (60 seconds)
+               var options = {timeout:60000};navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+               var map = new google.maps.Map(document.getElementById("mapholder"), options); 
+            } else{
+               alert("Sorry, browser does not support geolocation!");
+            }
+         }
+      </script>
+   </head>
+   <body>
+      <div class="row">
+         <div class="col-md-4"></div>
+      <div id="mapholder" onload="getLocation();" ></div>
+      <form>
+         <input type="button" onclick="getLocation();" value="Get Location"/>
+      </form>
+   </div>
+   </body>
+</html>
